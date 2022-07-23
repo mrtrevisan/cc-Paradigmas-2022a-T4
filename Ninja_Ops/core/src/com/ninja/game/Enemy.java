@@ -6,30 +6,17 @@ import com.badlogic.gdx.math.Rectangle;
 public class Enemy extends Rectangle {
     protected Texture img;
     protected float speed;
-    protected float x, y;
 
     public Enemy(float x, float y, float speed){
-        this.x = x;
-        this.y = y;
+        super(x, y, 0, 0);
         this.speed = speed;
-        img = new Texture("badlogic.jpg");
+        img = new Texture("enemy_back.png");
+        super.setWidth(img.getWidth());
+        super.setHeight(img.getHeight());
     } 
-    public float getX(){
-        return x;
-    }
-    public float getY(){
-        return y;
-    }
     public Texture getImg(){
         return img;
     }
-
-    public void setX(int x){
-        this.x = x;
-    }
-    public void setY(int y){
-        this.y = y;
-    } 
 
     public void dispose(){
         img.dispose();

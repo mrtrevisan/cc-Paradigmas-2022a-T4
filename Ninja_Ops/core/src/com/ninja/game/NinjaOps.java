@@ -23,9 +23,9 @@ public class NinjaOps extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
-      	camera.setToOrtho(false, 1920, 1080);		
-		player = new Player(0, 0, 500);
-		enemy = new Enemy(400, 400, 200); 
+      	camera.setToOrtho(false, 720, 405);		
+		player = new Player(0, 0, 100);
+		enemy = new Enemy(100, 100, 50); 
 		detected = 0;
 	}
 

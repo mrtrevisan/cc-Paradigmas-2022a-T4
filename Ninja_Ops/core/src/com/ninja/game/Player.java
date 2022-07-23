@@ -8,33 +8,19 @@ import com.badlogic.gdx.Input.Keys;
 public class Player extends Rectangle{
     protected Texture img;
     protected Float speed;
-    //protected int x, y, width, height;
 
     public Player(int x, int y, float speed){
         super(x, y, 0, 0);
         this.speed = speed;
-        img = new Texture("badlogic.jpg");
+        img = new Texture("player_back.png");
         super.setWidth(img.getWidth());
         super.setHeight(img.getHeight());
     } 
-/*
-    public int getX(){
-        return super.x;
-    }
-    public int getY(){
-        return y;
-    } */
+
     public Texture getImg(){
         return img;
     }
 
- /*   public void setX(int x){
-        super.x = x;
-    }
-    public void setY(int y){
-        super.y = y;
-    } 
-*/
     public void move(){
         if(Gdx.input.isKeyPressed(Keys.LEFT)) super.x -= this.speed * Gdx.graphics.getDeltaTime();
       	if(Gdx.input.isKeyPressed(Keys.RIGHT)) super.x += this.speed * Gdx.graphics.getDeltaTime();
