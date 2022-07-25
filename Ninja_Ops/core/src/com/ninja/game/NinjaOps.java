@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 
 public class NinjaOps extends ApplicationAdapter {
@@ -17,7 +18,7 @@ public class NinjaOps extends ApplicationAdapter {
 	Player player;
 	Enemy enemy;
 	int detected;
-	
+	BitmapFont txt;
 
 	@Override
 	public void create () {
@@ -25,7 +26,8 @@ public class NinjaOps extends ApplicationAdapter {
 		camera = new OrthographicCamera();
       	camera.setToOrtho(false, 720, 405);		
 		player = new Player(0, 0, 100);
-		enemy = new Enemy(100, 100, 50); 
+		enemy = new Enemy(100, 100, 50, 'N', 45d); 
+		txt = new BitmapFont();
 		detected = 0;
 	}
 
@@ -37,13 +39,15 @@ public class NinjaOps extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(player.getImg(), player.getX(), player.getY());
 		batch.draw(enemy.getImg(), enemy.getX(), enemy.getY());
+		txt.draw(batch, "detected: " + detected, 20, 20);
 		batch.end();
+
 
 		player.move();
 		GameUtils.camera_move(player, camera);
-		if (GameUtils.check_collision(player, enemy)) {
-			System.out.println("detected");
-		}
+		if (GameUtils.check_collision(player, enemy) || GameUtils.check_fov(player, enemy)) {
+			detected = 1;
+		} else detected = 0;
 	}
 	
 	@Override
