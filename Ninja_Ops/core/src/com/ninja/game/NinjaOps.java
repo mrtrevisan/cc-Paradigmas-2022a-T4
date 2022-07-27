@@ -19,6 +19,7 @@ public class NinjaOps extends ApplicationAdapter {
 	Enemy enemy;
 	int detected;
 	BitmapFont txt;
+	Thread t1;
 
 	@Override
 	public void create () {
@@ -26,9 +27,11 @@ public class NinjaOps extends ApplicationAdapter {
 		camera = new OrthographicCamera();
       	camera.setToOrtho(false, 720, 405);		
 		player = new Player(0, 0, 100);
-		enemy = new Enemy(100, 100, 50, 'N', 45d); 
+		enemy = new Enemy(100, 100, 50, 'N', 120d); 
 		txt = new BitmapFont();
 		detected = 0;
+		t1 = new Thread(new EnemyMove(enemy, 1));
+		t1.start();
 	}
 
 	@Override
@@ -55,5 +58,7 @@ public class NinjaOps extends ApplicationAdapter {
 		batch.dispose();
 		player.dispose();
 		enemy.dispose();
+
+		txt.dispose();
 	}
 }

@@ -18,8 +18,16 @@ public class Enemy extends Rectangle {
         super.setWidth(img.getWidth());
         super.setHeight(img.getHeight());
     } 
+    public void setDirection(char dir){
+        this.face_direction = dir;
+    }
+
     public Texture getImg(){
         return img;
+    }
+
+    public float getSpeed(){
+        return this.speed;
     }
 
     public float getFOV_X(){
