@@ -11,6 +11,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
+import com.ninja.game.PlayScreen
+
 
 public class NinjaOps extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -29,6 +31,8 @@ public class NinjaOps extends ApplicationAdapter {
 		enemy = new Enemy(100, 100, 50, 'N', 120d, 0); 
 		txt = new BitmapFont();
 		detected = 0;
+
+		setScreen(new PlayScreen(this));
 	}
 
 	@Override
