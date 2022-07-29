@@ -34,6 +34,8 @@ public class NinjaOps extends ApplicationAdapter {
 	@Override
 	public void render () {
 		ScreenUtils.clear(1, 0, 0, 1);
+
+		
 		camera.update();	
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
@@ -42,8 +44,8 @@ public class NinjaOps extends ApplicationAdapter {
 		txt.draw(batch, "detected: " + detected, 20, 20);
 		batch.end();
 
+
 		player.move();
-		enemy.Move_phase1();
 		GameUtils.camera_move(player, camera);
 		if (GameUtils.check_collision(player, enemy) || GameUtils.check_fov(player, enemy)) {
 			detected = 1;
@@ -55,7 +57,6 @@ public class NinjaOps extends ApplicationAdapter {
 		batch.dispose();
 		player.dispose();
 		enemy.dispose();
-
 		txt.dispose();
 	}
 }
