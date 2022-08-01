@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.sound;
+//import com.badlogic.gdx.audio.sound;
 
 
 
@@ -28,7 +28,7 @@ public class MainMenuScreen implements Screen {
 
 		menu = new Texture(Gdx.files.internal("MenuScreen.png"));
 
-		menu_music = gdx.audio.newMusic(gdx.files.internal("Silence.mp3"));
+		menu_music = Gdx.audio.newMusic(Gdx.files.internal("Silence.mp3"));
 
 		menu_music.setLooping(true);
 		menu_music.play();
@@ -44,10 +44,10 @@ public class MainMenuScreen implements Screen {
 		
 		game.batch.begin();
 // ver se é assim que coloca fundo:
-		game.batch.draw(MenuScreen,WIDTH,HEIGHT);
+		game.batch.draw(menu,WIDTH,HEIGHT);
 
-		game.font.draw(game.batch, "Welcome to NinjaOps!!", 100, 150);
-		game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
+		game.txt.draw(game.batch, "Welcome to NinjaOps!!", 100, 150);
+		game.txt.draw(game.batch, "Tap anywhere to begin!", 100, 100);
 		game.batch.end();
 		
 		// If player activates the game, dispose of this menu.

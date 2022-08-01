@@ -11,9 +11,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
+//import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+//import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -131,9 +132,9 @@ public class PlayScreen implements Screen{
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
 
-        batch.draw(player.getImg(), player.getX(), player.getY());
-		batch.draw(enemy.getImg(), enemy.getX(), enemy.getY());
-		txt.draw(batch, "detected: " + detected, 20, 20);
+        game.batch.draw(player.getImg(), player.getX(), player.getY());
+		game.batch.draw(enemy.getImg(), enemy.getX(), enemy.getY());
+		game.txt.draw(game.batch, "detected: " + detected, 20, 20);
 
         game.batch.end();
 
@@ -162,9 +163,7 @@ public class PlayScreen implements Screen{
     public TiledMap getMap(){
         return map;
     }
-    public World getWorld(){
-        return world;
-    }
+
 
     @Override
     public void pause() {
@@ -186,8 +185,6 @@ public class PlayScreen implements Screen{
         //dispose of all our opened resources
         map.dispose();
         renderer.dispose();
-        world.dispose();
-        b2dr.dispose();
 
     }
 

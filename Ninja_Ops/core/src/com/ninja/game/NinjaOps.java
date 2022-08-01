@@ -23,8 +23,8 @@ public class NinjaOps extends Game {
 	public static final int V_ALT = 200;
 
 
-	Public SpriteBatch batch;
-	Public BitmapFont txt;
+	public SpriteBatch batch;
+	public BitmapFont txt;
 	
 	/*
 	OrthographicCamera camera;
