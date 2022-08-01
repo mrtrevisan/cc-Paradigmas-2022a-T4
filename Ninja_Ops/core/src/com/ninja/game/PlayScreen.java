@@ -77,6 +77,9 @@ public class PlayScreen implements Screen{
         map = maploader.load("maptest.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
 
+        //create our game HUD for scores/timers/level info
+        hud = new Hud(game.batch);
+
         //initially set our gamcam to be centered correctly at the start of of map
         // gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
