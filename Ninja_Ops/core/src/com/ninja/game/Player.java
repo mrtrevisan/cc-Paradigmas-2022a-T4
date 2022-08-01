@@ -6,25 +6,33 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
 public class Player extends Rectangle{
-    protected Texture img;
+    protected Texture img_back, img_front, img_left, img_right, img_to_show;
     protected Float speed;
 
     public Player(int x, int y, float speed){
         super(x, y, 0, 0);
         this.speed = speed;
-        img = new Texture("player_back.png");
-        super.setWidth(img.getWidth());
-        super.setHeight(img.getHeight());
+        this.img_back = new Texture("player_back.png");
+        this.img_left = new Texture("player_left.png");
+        this.img_to_show = img_back;
+        super.setWidth(img_to_show.getWidth());
+        super.setHeight(img_to_show.getHeight());
     } 
 
     public Texture getImg(){
-        return img;
+        return img_to_show;
     }
 
     public void move(){
-        if(Gdx.input.isKeyPressed(Keys.LEFT)) super.x -= this.speed * Gdx.graphics.getDeltaTime();
+        if(Gdx.input.isKeyPressed(Keys.LEFT)){ 
+            super.x -= this.speed * Gdx.graphics.getDeltaTime();
+            this.img_to_show = this.img_left;
+        }
       	if(Gdx.input.isKeyPressed(Keys.RIGHT)) super.x += this.speed * Gdx.graphics.getDeltaTime();
-        if(Gdx.input.isKeyPressed(Keys.UP)) super.y += this.speed * Gdx.graphics.getDeltaTime();
+        if(Gdx.input.isKeyPressed(Keys.UP)){
+            super.y += this.speed * Gdx.graphics.getDeltaTime();
+            this.img_to_show = this.img_back;
+        }
 		if(Gdx.input.isKeyPressed(Keys.DOWN)) super.y -= this.speed * Gdx.graphics.getDeltaTime();
 
         if(super.x < 0) super.x = 0;
@@ -35,6 +43,7 @@ public class Player extends Rectangle{
     }
 
     public void dispose(){
-        img.dispose();
+        img_back.dispose();
+        img_left.dispose();
     }
 }

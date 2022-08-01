@@ -64,7 +64,7 @@ public class PlayScreen implements Screen{
         this.game = game_passed;
         //create cam used to follow ninja through cam world
         gamecam = new OrthographicCamera();
-
+        camera = new OrthographicCamera();
         //create a FitViewport to maintain virtual aspect ratio despite screen size
         gamePort = new FitViewport(NinjaOps.V_LAR, NinjaOps.V_ALT, gamecam);
 
@@ -79,7 +79,7 @@ public class PlayScreen implements Screen{
         renderer = new OrthogonalTiledMapRenderer(map);
 
         //create our game HUD for scores/timers/level info
-        hud = new Hud(game.batch);
+        hud = new Hud(game.batch, this);
 
         //initially set our gamcam to be centered correctly at the start of of map
         // gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
@@ -111,7 +111,7 @@ public class PlayScreen implements Screen{
         gamecam.update();
         //tell our renderer to draw only what our camera can see in our game world.
         renderer.setView(gamecam);
-
+        hud.update(dt, detected);
     }
 
 
@@ -134,22 +134,22 @@ public class PlayScreen implements Screen{
 
         game.batch.draw(player.getImg(), player.getX(), player.getY());
 		game.batch.draw(enemy.getImg(), enemy.getX(), enemy.getY());
-		game.txt.draw(game.batch, "detected: " + detected, 20, 20);
+		//game.txt.draw(game.batch, "detected: " + detected, 20, 20);
 
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
-
+        hud.updateDetection(detected);
 
 
         player.move();
-		GameUtils.camera_move(player, camera);
+		GameUtils.camera_move(player, gamecam);
 		if (GameUtils.check_collision(player, enemy) || GameUtils.check_fov(player, enemy)) {
 			detected = 1;
 		} else detected = 0;
-
-        ScreenUtils.clear(1, 0, 0, 1);
+        
+        //ScreenUtils.clear(1, 0, 0, 1);
     }
 
 
