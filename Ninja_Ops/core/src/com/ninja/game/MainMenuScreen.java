@@ -28,7 +28,7 @@ public class MainMenuScreen implements Screen {
 
 		menu = new Texture(Gdx.files.internal("MenuScreen.png"));
 
-		menu_music = gdx.audio.newMusic(gdx.files.internal("Silence.mp3"))
+		menu_music = gdx.audio.newMusic(gdx.files.internal("Silence.mp3"));
 
 		menu_music.setLooping(true);
 		menu_music.play();
@@ -43,7 +43,7 @@ public class MainMenuScreen implements Screen {
 		game.batch.setProjectionMatrix(camera.combined);
 		
 		game.batch.begin();
-
+// ver se é assim que coloca fundo:
 		game.batch.draw(MenuScreen,WIDTH,HEIGHT);
 
 		game.font.draw(game.batch, "Welcome to NinjaOps!!", 100, 150);
@@ -52,7 +52,7 @@ public class MainMenuScreen implements Screen {
 		
 		// If player activates the game, dispose of this menu.
 		if (Gdx.input.isTouched()) {
-			game.setScreen(new GameScreen(game));
+			game.setScreen(new PlayScreen(game));
 			dispose();
 		}
 	}

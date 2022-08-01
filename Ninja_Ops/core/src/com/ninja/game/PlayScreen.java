@@ -24,7 +24,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class PlayScreen implements Screen{
     //Reference to our Game, used to set Screens
-    private NinjaOps game;
+    final NinjaOps game;
     private TextureAtlas atlas;
     public static boolean alreadyDestroyed = false;
 
@@ -37,6 +37,11 @@ public class PlayScreen implements Screen{
     private TmxMapLoader maploader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
+
+    OrthographicCamera camera;
+	Player player;
+	Enemy enemy;
+	int detected;
 
 /*
 
@@ -52,17 +57,20 @@ public class PlayScreen implements Screen{
 
 
 
-    public PlayScreen(NinjaOps game){
+    public PlayScreen(NinjaOps game_passed){
         // atlas = new TextureAtlas("Mario_and_Enemies.pack");
 
-        this.game = game;
-        //create cam used to follow mario through cam world
+        this.game = game_passed;
+        //create cam used to follow ninja through cam world
         gamecam = new OrthographicCamera();
 
         //create a FitViewport to maintain virtual aspect ratio despite screen size
-        gamePort = new FitViewport(100, 100, gamecam);
+        gamePort = new FitViewport(NinjaOps.V_LAR, NinjaOps.V_ALT, gamecam);
 
-
+      	camera.setToOrtho(false, 720, 405);		
+		player = new Player(0, 0, 100);
+		enemy = new Enemy(100, 100, 50, 'N', 120d, 0); 
+		detected = 0;
 
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
@@ -70,7 +78,7 @@ public class PlayScreen implements Screen{
         renderer = new OrthogonalTiledMapRenderer(map);
 
         //initially set our gamcam to be centered correctly at the start of of map
-        gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+        // gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
     }
 
@@ -120,11 +128,24 @@ public class PlayScreen implements Screen{
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
 
+        batch.draw(player.getImg(), player.getX(), player.getY());
+		batch.draw(enemy.getImg(), enemy.getX(), enemy.getY());
+		txt.draw(batch, "detected: " + detected, 20, 20);
+
         game.batch.end();
 
+        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
 
 
 
+        player.move();
+		GameUtils.camera_move(player, camera);
+		if (GameUtils.check_collision(player, enemy) || GameUtils.check_fov(player, enemy)) {
+			detected = 1;
+		} else detected = 0;
+
+        ScreenUtils.clear(1, 0, 0, 1);
     }
 
 
