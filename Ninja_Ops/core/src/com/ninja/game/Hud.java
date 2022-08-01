@@ -51,8 +51,11 @@ public class Hud implements Disposable{
         //make the table fill the entire stage
         table.setFillParent(true);
 
+        
+
+
         //define our labels using the String, and a Label style consisting of a font and color
-        countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        countdownLabel = new Label(worldTimer.toString(), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label("TEMPO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelLabel = new Label("ALPHA", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         detectedLabel = new Label(String.format("%01d", detected), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -76,7 +79,7 @@ public class Hud implements Disposable{
         timeCount += dt;
         if(timeCount >= 1){
             worldTimer++;
-            countdownLabel.setText(String.format("%03d", worldTimer));
+            countdownLabel.setText(worldTimer.toString());
             timeCount = 0;
         }
     }

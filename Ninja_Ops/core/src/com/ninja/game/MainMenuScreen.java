@@ -44,7 +44,7 @@ public class MainMenuScreen implements Screen {
 		
 		game.batch.begin();
 // ver se é assim que coloca fundo:
-		game.batch.draw(menu,WIDTH,HEIGHT);
+		game.batch.draw(menu,0,0);
 
 		game.txt.draw(game.batch, "Welcome to NinjaOps!!", 100, 150);
 		game.txt.draw(game.batch, "Tap anywhere to begin!", 100, 100);
@@ -85,8 +85,8 @@ public class MainMenuScreen implements Screen {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		menu_music.dispose();
-		menu.dispose();
+	//	menu_music.dispose();
+	//	menu.dispose();
 	}
 
 	@Override

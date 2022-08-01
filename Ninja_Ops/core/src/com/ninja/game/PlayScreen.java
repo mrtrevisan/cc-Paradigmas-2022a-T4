@@ -60,26 +60,28 @@ public class PlayScreen implements Screen{
 
     public PlayScreen(NinjaOps game_passed){
         // atlas = new TextureAtlas("Mario_and_Enemies.pack");
-
         this.game = game_passed;
         //create cam used to follow ninja through cam world
         gamecam = new OrthographicCamera();
         camera = new OrthographicCamera();
         //create a FitViewport to maintain virtual aspect ratio despite screen size
         gamePort = new FitViewport(NinjaOps.V_LAR, NinjaOps.V_ALT, gamecam);
-
-      	camera.setToOrtho(false, 720, 405);		
+        
+        camera = new OrthographicCamera();
+      	camera.setToOrtho(false, 720, 405); 		
 		player = new Player(0, 0, 100);
-		enemy = new Enemy(100, 100, 50, 'N', 120d, 0); 
+		enemy = new Enemy(100, 100, 50, 'N', 120d, 0);
 		detected = 0;
-
         //Load our map and setup our map renderer
+
+        
         maploader = new TmxMapLoader();
         map = maploader.load("maptest.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
-
+        
         //create our game HUD for scores/timers/level info
         hud = new Hud(game.batch, this);
+
 
         //initially set our gamcam to be centered correctly at the start of of map
         // gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
