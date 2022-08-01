@@ -58,7 +58,7 @@ public class Hud implements Disposable{
         countdownLabel = new Label(worldTimer.toString(), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label("TEMPO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelLabel = new Label("ALPHA", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        detectedLabel = new Label(String.format("%01d", detected), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        detectedLabel = new Label(detected.toString(), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
         table.add(timeLabel).expandX().padTop(10);
@@ -86,7 +86,7 @@ public class Hud implements Disposable{
 
     public void updateDetection(int detected){
         this.detected = detected;
-        detectedLabel.setText(String.format("%01d", this.detected));
+        detectedLabel.setText(detected.toString());
     }
 
     @Override
