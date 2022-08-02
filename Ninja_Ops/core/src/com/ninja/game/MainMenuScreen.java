@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.Input.Keys;
 //import com.badlogic.gdx.audio.sound;
 
 
@@ -47,12 +48,16 @@ public class MainMenuScreen implements Screen {
 		game.batch.draw(menu,0,0);
 
 		game.txt.draw(game.batch, "Welcome to NinjaOps!!", 100, 150);
-		game.txt.draw(game.batch, "Tap anywhere to begin!", 100, 100);
+		game.txt.draw(game.batch, "Press enter to start the game!", 100, 100);
+		game.txt.draw(game.batch, "Esc to finish the game", 10, 400);
 		game.batch.end();
 		
 		// If player activates the game, dispose of this menu.
-		if (Gdx.input.isTouched()) {
+		if(Gdx.input.isKeyPressed(Keys.ENTER)){ 
 			game.setScreen(new PlayScreen(game));
+			dispose();
+		}
+		else if(Gdx.input.isKeyPressed(Keys.ESCAPE)){
 			dispose();
 		}
 	}
