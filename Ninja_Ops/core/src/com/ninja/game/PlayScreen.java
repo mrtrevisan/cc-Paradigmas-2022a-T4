@@ -74,7 +74,7 @@ public class PlayScreen implements Screen{
 		detected = 0;
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
-        map = maploader.load("maptest.tmx");
+        map = maploader.load("fase_alpha.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         
         //create our game HUD for scores/timers/level info
