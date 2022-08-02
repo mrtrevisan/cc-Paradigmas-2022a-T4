@@ -51,6 +51,8 @@ public class Player extends Rectangle{
 
     public void dispose(){
         img_back.dispose();
+        img_front.dispose();
         img_left.dispose();
+        img_right.dispose();
     }
 }
