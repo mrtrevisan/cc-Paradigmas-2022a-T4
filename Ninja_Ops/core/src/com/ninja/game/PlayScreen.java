@@ -70,11 +70,9 @@ public class PlayScreen implements Screen{
         camera = new OrthographicCamera();
       	camera.setToOrtho(false, 720, 405); 		
 		player = new Player(0, 0, 100);
-		enemy = new Enemy(100, 100, 50, 'N', 120d, 0);
+		enemy = new Enemy(100, 100, 25, 'N', 120d);
 		detected = 0;
         //Load our map and setup our map renderer
-
-        
         maploader = new TmxMapLoader();
         map = maploader.load("maptest.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
@@ -129,8 +127,6 @@ public class PlayScreen implements Screen{
         //render our game map
         renderer.render();
 
-        
-
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
 
@@ -144,7 +140,7 @@ public class PlayScreen implements Screen{
         hud.stage.draw();
         hud.updateDetection(detected);
 
-
+        enemy.move_alpha();
         player.move();
 		GameUtils.camera_move(player, gamecam);
 		if (GameUtils.check_collision(player, enemy) || GameUtils.check_fov(player, enemy)) {
