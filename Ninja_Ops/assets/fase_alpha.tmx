@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="100" height="80" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="21">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="100" height="80" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="30">
  <tileset firstgid="1" source="tileset_gutter.tsx"/>
  <layer id="1" name="background" width="100" height="80">
   <data encoding="base64" compression="zlib">
-   eJzt2jEOgkAURdHZHK7Edbo2O5nKQjBzIac4JcnPuw1BtzHGBgAAAAAAAAAAAAAAAAAAAHw8J/98Bj2uSI8WPVr0aNGjRY/z9jubHnpcnR4t8xaPyaobVu+xmh4terQUtijcUFHYonBDRWGLwg0VhS0KN1Ss2mJ+d9BDjyo9Wo5+31j1jeWu9GjRo+Voj9X3340eLXq06NGiR4seLXq06NGiR4seLXq06NGiR4seLfO23/4P5/c8PX71Ctygx+4N3pyY7g==
+   eJzt2kEOwVAYhVFRY0OxABu0FQuyNgaV/pEQvEdv6pzkTqQDeV9CU1YrAAAAAAAAAAAAAAAAAIBlW5dtxx3udnu9Xkt/2wfbXXcct39yHX3pkUWPLPX74PTihjL6qmerx/z0yKJHFj2y6JFFjzbDF6fH+/TIokeWehabslfPssf0mOiRRY8sn3ze6/E9emTRI4seWebqUe8d9JjokUWPLK3PN3rv3+mRRY8srT3oS48semTRI4seWfTIokcWPbLokUWPLHpk0SOLHln0yFLP9tn/4fye9xtL7HGe+w00WGKPC1HNTTc=
   </data>
  </layer>
  <objectgroup id="2" name="walls">
@@ -13,5 +13,10 @@
   <object id="18" x="1072" y="640" width="48" height="109.333"/>
   <object id="19" x="1008" y="960" width="320" height="48"/>
   <object id="20" x="1280" y="640" width="48" height="320"/>
+  <object id="23" x="1072" y="592" width="96" height="48"/>
+  <object id="26" x="1232" y="592" width="96" height="48"/>
+ </objectgroup>
+ <objectgroup id="3" name="door">
+  <object id="29" x="1168" y="592" width="64" height="48"/>
  </objectgroup>
 </map>

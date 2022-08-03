@@ -18,10 +18,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-
 import java.util.PriorityQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-
 
 public class PlayScreen implements Screen{
     //Reference to our Game, used to set Screens
@@ -54,9 +52,6 @@ public class PlayScreen implements Screen{
 */
 
     private Music music;
-
-
-
 
     public PlayScreen(NinjaOps game_passed){
         // atlas = new TextureAtlas("Mario_and_Enemies.pack");
