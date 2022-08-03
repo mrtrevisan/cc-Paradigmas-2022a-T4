@@ -81,7 +81,7 @@ public class PlayScreen implements Screen{
         b2dr = new Box2DDebugRenderer();
 
         BodyDef bdef = new BodyDef(); 
-        PolygonShape rect = new PolygonShape();
+        PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
         Body body;
 
@@ -93,7 +93,7 @@ public class PlayScreen implements Screen{
 
             body = world.createBody(bdef);
 
-            //shape.setAsBox(retangulo.getWidth() /2, retangulo.getHeight() / 2);
+            shape.setAsBox(retangulo.getWidth() /2, retangulo.getHeight() / 2);
         }
         //initially set our gamcam to be centered correctly at the start of of map
         // gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
@@ -107,13 +107,6 @@ public class PlayScreen implements Screen{
     @Override
     public void show() {
 
-
-    }
-    // acredito que de pra retirar 
-    public void handleInput(float dt){
-        if(Gdx.input.isTouched()){
-            gamecam.position.x += 100 * dt;
-        }
 
     }
 
