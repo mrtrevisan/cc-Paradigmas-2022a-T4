@@ -32,19 +32,19 @@ public class Player extends Rectangle{
     }
 
     public void move(){
-        if(Gdx.input.isKeyPressed(Keys.LEFT)){ 
+        if(Gdx.input.isKeyPressed(Keys.A)){ 
             super.x -= this.speed * Gdx.graphics.getDeltaTime();
             this.img_to_show = this.img_left;
         }
-      	if(Gdx.input.isKeyPressed(Keys.RIGHT)){
+      	if(Gdx.input.isKeyPressed(Keys.D)){
             super.x += this.speed * Gdx.graphics.getDeltaTime();
             this.img_to_show = this.img_right;
         }
-        if(Gdx.input.isKeyPressed(Keys.UP)){
+        if(Gdx.input.isKeyPressed(Keys.W)){
             super.y += this.speed * Gdx.graphics.getDeltaTime();
             this.img_to_show = this.img_back;
         }
-		if(Gdx.input.isKeyPressed(Keys.DOWN)){ 
+		if(Gdx.input.isKeyPressed(Keys.S)){ 
             super.y -= this.speed * Gdx.graphics.getDeltaTime();
             this.img_to_show = this.img_front;
         }

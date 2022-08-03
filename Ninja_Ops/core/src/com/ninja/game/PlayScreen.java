@@ -94,6 +94,8 @@ public class PlayScreen implements Screen{
             body = world.createBody(bdef);
 
             shape.setAsBox(retangulo.getWidth() /2, retangulo.getHeight() / 2);
+            fdef.shape = shape;
+            body.createFixture(fdef);
         }
         //initially set our gamcam to be centered correctly at the start of of map
         // gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
@@ -131,12 +133,16 @@ public class PlayScreen implements Screen{
         //render our game map
         renderer.render();
 
+        //render our BOX2DDebuglines
+        b2dr.render(world, gamecam.combined);
+
+
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
 
         game.batch.draw(player.getImg(), player.getX(), player.getY());
 		game.batch.draw(enemy.getImg(), enemy.getX(), enemy.getY());
-		//game.txt.draw(game.batch, "detected: " + detected, 20, 20);
+
 
         game.batch.end();
 
@@ -144,7 +150,7 @@ public class PlayScreen implements Screen{
         hud.stage.draw();
         hud.updateDetection(detected);
 
-        //enemy.move_alpha();
+        enemy.move_alpha();
         player.move();
 		GameUtils.camera_move(player, gamecam);
 		if (GameUtils.check_collision(player, enemy) || GameUtils.check_fov(player, enemy)) {
