@@ -67,6 +67,7 @@ public class PlayScreen implements Screen{
         //create a FitViewport to maintain virtual aspect ratio despite screen size
         gamePort = new FitViewport(NinjaOps.V_LAR, NinjaOps.V_ALT, gamecam);
         
+        // em duvida se essa camera esta sendo util
         camera = new OrthographicCamera();
       	camera.setToOrtho(false, 720, 405); 		
 		player = new Player(850, 0, 100);
@@ -77,7 +78,7 @@ public class PlayScreen implements Screen{
         map = maploader.load("fase_alpha.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         
-        //create our game HUD for scores/timers/level info
+        //create our game HUD 
         hud = new Hud(game.batch, this);
 
 
@@ -95,7 +96,7 @@ public class PlayScreen implements Screen{
 
 
     }
-
+    // acredito que de pra retirar 
     public void handleInput(float dt){
         
         if(Gdx.input.isTouched()){
@@ -106,6 +107,7 @@ public class PlayScreen implements Screen{
 
     public void update(float dt){
         //handle user input first
+        // acredito que de pra retirar
         handleInput(dt);
         //update our gamecam with correct coordinates after changes
         gamecam.update();

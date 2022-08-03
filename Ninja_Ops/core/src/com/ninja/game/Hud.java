@@ -20,13 +20,13 @@ public class Hud implements Disposable{
     public Stage stage;
     private Viewport viewport;
 
-    //Mario score/time Tracking Variables
+    //Detected/time Tracking Variables
     private Integer worldTimer;
     private boolean timeUp; // true when the world timer reaches 0
     private float timeCount;
     private Integer detected;
 
-    //Scene2D widgets
+    //Labels
     private Label countdownLabel;
     private Label timeLabel;
     private Label levelLabel;
@@ -54,7 +54,7 @@ public class Hud implements Disposable{
         
 
 
-        //define our labels using the String, and a Label style consisting of a font and color
+        //define our labels using the String, and a Label style consisting of a font and color, toString -> important for build html
         countdownLabel = new Label(worldTimer.toString(), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label("TEMPO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelLabel = new Label("ALPHA", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -90,7 +90,11 @@ public class Hud implements Disposable{
     }
 
     @Override
-    public void dispose() { stage.dispose(); }
+    public void dispose(){ 
+        stage.dispose(); 
+    }
 
-    public boolean isTimeUp() { return timeUp; }
+    public boolean isTimeUp(){ 
+        return timeUp; 
+    }
 }
