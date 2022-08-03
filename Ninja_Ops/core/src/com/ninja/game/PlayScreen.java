@@ -1,5 +1,5 @@
 package com.ninja.game;
-
+// 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
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -7,12 +7,21 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+//import com.badlogic.gdx.physics.box2d.B2WorldCreator;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-//import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-//import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -39,19 +48,19 @@ public class PlayScreen implements Screen{
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
 
-    OrthographicCamera camera;
+
 	Player player;
 	Enemy enemy;
 	int detected;
 
-/*
+
 
     //Box2d variables
     private World world;
     private Box2DDebugRenderer b2dr;
-    private B2WorldCreator creator;
+//    private B2WorldCreator creator;
 
-*/
+    
 
     private Music music;
 
@@ -63,13 +72,11 @@ public class PlayScreen implements Screen{
         this.game = game_passed;
         //create cam used to follow ninja through cam world
         gamecam = new OrthographicCamera();
-        camera = new OrthographicCamera();
+
         //create a FitViewport to maintain virtual aspect ratio despite screen size
         gamePort = new FitViewport(NinjaOps.V_LAR, NinjaOps.V_ALT, gamecam);
         
-        // em duvida se essa camera esta sendo util
-        camera = new OrthographicCamera();
-      	camera.setToOrtho(false, 720, 405); 		
+	
 		player = new Player(850, 0, 100);
 		enemy = new Enemy(900, 375, 25, 'N', 120d);
 		detected = 0;
@@ -80,6 +87,26 @@ public class PlayScreen implements Screen{
         
         //create our game HUD 
         hud = new Hud(game.batch, this);
+
+        world = new World(new Vector2(0,0), true);
+        b2dr = new Box2DDebugRenderer();
+
+        BodyDef bdef = new BodyDef(); 
+        PolygonShape rect = new PolygonShape();
+        FixtureDef fdef = new FixtureDef();
+        Body body;
+
+        for(MapObject object: map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle retangulo = ((RectangleMapObject) object).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set(retangulo.getX() + retangulo.getWidth()/2, retangulo.getY() + retangulo.getHeight() /2);
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(retangulo.getWidth() /2, retangulo.getHeight() / 2);
+        }
+
 
 
         //initially set our gamcam to be centered correctly at the start of of map
@@ -106,9 +133,7 @@ public class PlayScreen implements Screen{
     }
 
     public void update(float dt){
-        //handle user input first
-        // acredito que de pra retirar
-        handleInput(dt);
+
         //update our gamecam with correct coordinates after changes
         gamecam.update();
         //tell our renderer to draw only what our camera can see in our game world.
