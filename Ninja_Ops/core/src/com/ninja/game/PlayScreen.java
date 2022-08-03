@@ -147,7 +147,6 @@ public class PlayScreen implements Screen{
 			detected = 1;
 		} else detected = 0;
         
-        //ScreenUtils.clear(1, 0, 0, 1);
     }
 
 
