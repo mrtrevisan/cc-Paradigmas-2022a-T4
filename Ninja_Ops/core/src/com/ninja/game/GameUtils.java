@@ -17,8 +17,8 @@ public class GameUtils {
 
     public static void camera_move(Player player, OrthographicCamera camera){
         Vector3 position = camera.position;
-        position.x = player.getX();
-        position.y = player.getY();
+        position.x = player.getX() + (player.getImgW() / 2);
+        position.y = player.getY() + (player.getImgH() / 2);
         camera.position.set(position);
     }
 

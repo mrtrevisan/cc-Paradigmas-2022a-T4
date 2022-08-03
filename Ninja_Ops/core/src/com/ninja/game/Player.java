@@ -24,6 +24,12 @@ public class Player extends Rectangle{
     public Texture getImg(){
         return img_to_show;
     }
+    public float getImgW(){
+        return img_to_show.getWidth(); 
+    }
+    public float getImgH(){
+        return img_to_show.getHeight();
+    }
 
     public void move(){
         if(Gdx.input.isKeyPressed(Keys.LEFT)){ 
