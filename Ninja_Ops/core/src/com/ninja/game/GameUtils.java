@@ -7,10 +7,10 @@ import java.lang.Math;
 
 public class GameUtils {
     public static boolean check_collision(Player player, Enemy enemy){
-        if ((player.getX() < enemy.getX() + enemy.getWidth()) &&
-            (player.getX() + player.getWidth() > enemy.getX()) &&
-            (player.getY() < enemy.getY() + enemy.getHeight()) &&
-            (player.getY() + player.getHeight() > enemy.getY())) {
+        if ((player.getX() < enemy.getX() + enemy.getWidth() - 25) &&
+            (player.getX() + player.getWidth() - 25 > enemy.getX()) &&
+            (player.getY() < enemy.getY() + enemy.getHeight() - 25) &&
+            (player.getY() + player.getHeight() - 25  > enemy.getY())) {
             return true;
         } else return false;
     }
