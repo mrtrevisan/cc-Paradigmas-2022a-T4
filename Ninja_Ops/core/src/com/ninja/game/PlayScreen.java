@@ -67,7 +67,7 @@ public class PlayScreen implements Screen{
         gamePort = new FitViewport(NinjaOps.V_LAR, NinjaOps.V_ALT, gamecam);
         
 		player = new Player(850, 0, 100);
-		enemy = new Enemy(900, 375, 25, 'N', 120d);
+		enemy = new Enemy(900, 375, 25, 'N', 90d);
 		detected = 0;
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
