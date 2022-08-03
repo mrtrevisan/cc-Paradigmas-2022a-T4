@@ -1,7 +1,7 @@
 package com.ninja.game;
 // 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
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+//import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
@@ -19,16 +19,16 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+//import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ScreenUtils;
+//import com.badlogic.gdx.utils.Array;
+//import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.util.PriorityQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+//import java.util.PriorityQueue;
+//import java.util.concurrent.LinkedBlockingQueue;
 
 public class PlayScreen implements Screen{
     //Reference to our Game, used to set Screens
@@ -46,19 +46,14 @@ public class PlayScreen implements Screen{
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
 
-
 	Player player;
 	Enemy enemy;
 	int detected;
 
-
-
     //Box2d variables
     private World world;
     private Box2DDebugRenderer b2dr;
-//    private B2WorldCreator creator;
-
-    
+    //private B2WorldCreator creator;
 
     private Music music;
 
@@ -71,7 +66,6 @@ public class PlayScreen implements Screen{
         //create a FitViewport to maintain virtual aspect ratio despite screen size
         gamePort = new FitViewport(NinjaOps.V_LAR, NinjaOps.V_ALT, gamecam);
         
-	
 		player = new Player(850, 0, 100);
 		enemy = new Enemy(900, 375, 25, 'N', 120d);
 		detected = 0;
@@ -99,11 +93,8 @@ public class PlayScreen implements Screen{
 
             body = world.createBody(bdef);
 
-            shape.setAsBox(retangulo.getWidth() /2, retangulo.getHeight() / 2);
+            //shape.setAsBox(retangulo.getWidth() /2, retangulo.getHeight() / 2);
         }
-
-
-
         //initially set our gamcam to be centered correctly at the start of of map
         // gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
@@ -120,7 +111,6 @@ public class PlayScreen implements Screen{
     }
     // acredito que de pra retirar 
     public void handleInput(float dt){
-        
         if(Gdx.input.isTouched()){
             gamecam.position.x += 100 * dt;
         }
@@ -128,7 +118,6 @@ public class PlayScreen implements Screen{
     }
 
     public void update(float dt){
-
         //update our gamecam with correct coordinates after changes
         gamecam.update();
         //tell our renderer to draw only what our camera can see in our game world.
@@ -171,7 +160,6 @@ public class PlayScreen implements Screen{
         
     }
 
-
     @Override
     public void resize(int width, int height) {
         //updated our game viewport
@@ -182,7 +170,6 @@ public class PlayScreen implements Screen{
     public TiledMap getMap(){
         return map;
     }
-
 
     @Override
     public void pause() {
@@ -204,7 +191,5 @@ public class PlayScreen implements Screen{
         //dispose of all our opened resources
         map.dispose();
         renderer.dispose();
-
     }
-
 }
