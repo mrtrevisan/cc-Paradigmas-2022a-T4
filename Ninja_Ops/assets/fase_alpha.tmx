@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="tileset_gutter.tsx"/>
  <layer id="1" name="background" width="100" height="80">
   <data encoding="base64" compression="zlib">
-   eJzt2kEOwVAYhVFRY0OxABu0FQuyNgaV/pEQvEdv6pzkTqQDeV9CU1YrAAAAAAAAAAAAAAAAAIBlW5dtxx3udnu9Xkt/2wfbXXcct39yHX3pkUWPLPX74PTihjL6qmerx/z0yKJHFj2y6JFFjzbDF6fH+/TIokeWehabslfPssf0mOiRRY8sn3ze6/E9emTRI4seWebqUe8d9JjokUWPLK3PN3rv3+mRRY8srT3oS48semTRI4seWfTIokcWPbLokUWPLHpk0SOLHln0yFLP9tn/4fye9xtL7HGe+w00WGKPC1HNTTc=
+   eJzt2kEKglAYhVHJhtEw2mZbaUGtrQZB/ySx3jMvdg7cmYN4H4ikwwAAAAAAAAAAAAAAAAAAsF2HxtHX8c1Oj12eO09cR196ZNEjy67sOnNjGX3Vs9VjfXpk0SOLHln0yKJHm3HB6fE5PbLokaWexb5s7ln2mB4vemTRI8s393s9lqNHFj2y6JFlrR712UGPFz2y6JGl9f+N3vt3emTRI0trD/rSI4seWfTIokcWPbLokUWPLHpk0SOLHln0yKJHFj2y1LOd+h7O+7zf2GKP29o/oMEWe9wBCcpNIw==
   </data>
  </layer>
  <objectgroup id="2" name="walls">
