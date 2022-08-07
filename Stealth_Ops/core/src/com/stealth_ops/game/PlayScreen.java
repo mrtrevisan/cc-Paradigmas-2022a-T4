@@ -27,6 +27,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 //import java.util.PriorityQueue;
 //import java.util.concurrent.LinkedBlockingQueue;
 
@@ -46,9 +49,9 @@ public class PlayScreen implements Screen{
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
 
-	Player player;
-	Enemy enemy;
-	int detected;
+	protected Player player;
+	protected ArrayList<Enemy> enemies;
+	protected int detected;
 
     //Box2d variables
     private World world;
@@ -60,15 +63,18 @@ public class PlayScreen implements Screen{
     public PlayScreen(Stealth_Ops game_passed){
         // atlas = new TextureAtlas("Mario_and_Enemies.pack");
         this.game = game_passed;
+
         //create cam used to follow ninja through cam world
         gamecam = new OrthographicCamera();
-
         //create a FitViewport to maintain virtual aspect ratio despite screen size
         gamePort = new FitViewport(Stealth_Ops.V_LAR, Stealth_Ops.V_ALT, gamecam);
         
 		player = new Player(850, 0, 100);
-		enemy = new Enemy(900, 375, 25, 'N', 90d);
+		enemies = new ArrayList<Enemy>();
+        enemies.add(new Enemy(900, 375, 25, 30, 'N', 90d));
+
 		detected = 0;
+
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
         map = maploader.load("fase_alpha.tmx");
@@ -97,19 +103,15 @@ public class PlayScreen implements Screen{
             fdef.shape = shape;
             body.createFixture(fdef);
         }
-        //initially set our gamcam to be centered correctly at the start of of map
-        // gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
-
     }
 
     public TextureAtlas getAtlas(){
         return atlas;
     }
 
-    @Override
-    public void show() {
-
-
+    public void enemy_move_alpha(ArrayList<Enemy> enemies){
+        Iterator<Enemy> iter = enemies.iterator();
+        iter.next().move_alpha();
     }
 
     public void update(float dt){
@@ -136,29 +138,42 @@ public class PlayScreen implements Screen{
         //render our BOX2DDebuglines
         b2dr.render(world, gamecam.combined);
 
-
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
 
         game.batch.draw(player.getImg(), player.getX(), player.getY());
-		game.batch.draw(enemy.getImg(), enemy.getX(), enemy.getY());
-
-
+		for(Enemy enemy : enemies){
+            game.batch.draw(enemy.getImg(), enemy.getX(), enemy.getY());
+        }
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
         hud.updateDetection(detected);
 
-        enemy.move_alpha();
+        enemy_move_alpha(enemies);
         player.move();
 		GameUtils.camera_move(player, gamecam);
-		if (GameUtils.check_collision(player, enemy) || GameUtils.check_fov(player, enemy)) {
+
+		if (GameUtils.check_detection(player, enemies)) {
 			detected = 1;
 		} else detected = 0;
         
     }
 
+    public void hide(){
+
+    }
+    public void resume(){   
+		
+	}
+    public void pause(){
+		
+	}
+    public void show(){
+		
+	}
+    
     @Override
     public void resize(int width, int height) {
         //updated our game viewport
@@ -168,21 +183,6 @@ public class PlayScreen implements Screen{
 
     public TiledMap getMap(){
         return map;
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
     }
 
     @Override

@@ -6,14 +6,15 @@ import com.badlogic.gdx.Gdx;
 
 public class Enemy extends Rectangle {
     protected Texture img_back, img_front, img_left, img_right, img_to_show;
-    protected float speed;
+    protected float speed, sight;
     protected char face_direction;
     protected double fov_angle;
     protected int control;
 
-    public Enemy(float x, float y, float speed, char fd, double fa){
+    public Enemy(float x, float y, float speed, float sight, char fd, double fa){
         super(x, y, 0, 0);
         this.speed = speed;
+        this.sight = sight;
         this.face_direction = fd;
         this.fov_angle = fa;
         this.control = 0;
@@ -36,6 +37,10 @@ public class Enemy extends Rectangle {
 
     public float getSpeed(){
         return this.speed;
+    }
+
+    public float getSight(){
+        return this.sight;
     }
 
     public float getFOV_X(){

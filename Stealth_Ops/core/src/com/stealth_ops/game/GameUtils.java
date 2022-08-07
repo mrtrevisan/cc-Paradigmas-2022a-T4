@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.Vector2;
 import java.lang.Math;
+import java.util.ArrayList;
 
 public class GameUtils {
     public static boolean check_collision(Player player, Enemy enemy){
@@ -40,5 +41,27 @@ public class GameUtils {
             return false;
         }
 
+    }
+
+    public static boolean check_dist(Player player, Enemy enemy){
+        if (
+            Math.sqrt( 
+                Math.pow((enemy.x - player.x), 2d) + Math.pow((enemy.y - player.y), 2d) 
+            ) < enemy.getSight()
+        ) return true;
+        else return false;
+    }
+
+    public static boolean check_detection(Player player, ArrayList<Enemy> enemies){
+        for (Enemy enemy : enemies){
+            if( 
+                (check_collision(player, enemy)) || 
+                (
+                    check_fov(player, enemy) &&
+                    check_dist(player, enemy)
+                )
+            ) return true;
+        }
+        return false;
     }
 }
