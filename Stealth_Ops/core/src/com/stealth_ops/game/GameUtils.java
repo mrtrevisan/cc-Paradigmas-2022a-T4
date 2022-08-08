@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.Vector2;
 import java.lang.Math;
 import java.util.ArrayList;
+import com.badlogic.gdx.math.Rectangle;
 
 public class GameUtils {
     public static boolean check_collision(Player player, Enemy enemy){
@@ -64,4 +65,17 @@ public class GameUtils {
         }
         return false;
     }
+    
+    public static boolean check_wall_collision(Player player, float x, float y, ArrayList<Rectangle> walls){
+        for (Rectangle wall : walls) {
+            if ((x < wall.getX() + wall.getWidth() - 25) &&
+                (x + player.getWidth() - 25 > wall.getX()) &&
+                (y < wall.getY() + wall.getHeight() - 10) &&
+                (y + player.getHeight() - 45  > wall.getY())) {
+                return true;
+            } 
+        }
+        return false;
+    }
+
 }

@@ -1,13 +1,19 @@
 package com.stealth_ops.game;
 
+//import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
 public class Player extends Rectangle{
     protected Texture img_back, img_front, img_left, img_right, img_to_show;
-    protected Float speed;
+    protected float speed;
+    protected float desloc;
+    //Body body;
 
     public Player(int x, int y, float speed){
         super(x, y, 0, 0);
@@ -31,22 +37,28 @@ public class Player extends Rectangle{
         return img_to_show.getHeight();
     }
 
-    public void move(){
-        if(Gdx.input.isKeyPressed(Keys.A)){ 
-            super.x -= this.speed * Gdx.graphics.getDeltaTime();
+    public void move(ArrayList<Rectangle> walls){
+        desloc = this.speed * Gdx.graphics.getDeltaTime();
+
+        if(Gdx.input.isKeyPressed(Keys.A)){
             this.img_to_show = this.img_left;
+            if (!GameUtils.check_wall_collision(this, super.x - desloc, super.y, walls))
+                super.x -= desloc;
         }
       	if(Gdx.input.isKeyPressed(Keys.D)){
-            super.x += this.speed * Gdx.graphics.getDeltaTime();
             this.img_to_show = this.img_right;
+            if (!GameUtils.check_wall_collision(this, super.x + desloc, super.y, walls))
+                super.x += desloc;
         }
         if(Gdx.input.isKeyPressed(Keys.W)){
-            super.y += this.speed * Gdx.graphics.getDeltaTime();
             this.img_to_show = this.img_back;
+            if (!GameUtils.check_wall_collision(this, super.x, super.y + desloc, walls))
+                super.y += desloc;
         }
 		if(Gdx.input.isKeyPressed(Keys.S)){ 
-            super.y -= this.speed * Gdx.graphics.getDeltaTime();
             this.img_to_show = this.img_front;
+            if (!GameUtils.check_wall_collision(this, super.x, super.y - desloc, walls))
+                super.y -= desloc;
         }
         if(super.x < 0) super.x = 0;
     	if(super.x > 1920 - super.width) super.x = 1920 - super.width;

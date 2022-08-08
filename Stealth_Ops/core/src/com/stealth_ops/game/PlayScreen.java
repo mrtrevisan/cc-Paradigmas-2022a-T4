@@ -51,13 +51,21 @@ public class PlayScreen implements Screen{
 
 	protected Player player;
 	protected ArrayList<Enemy> enemies;
-	protected int detected;
+    protected ArrayList<Rectangle> walls;
+    protected ArrayList<Rectangle> doors;
 
+	protected int detected;
+/* 
     //Box2d variables
     private World world;
     private Box2DDebugRenderer b2dr;
     //private B2WorldCreator creator;
 
+    BodyDef bdef;
+    PolygonShape shape;
+    FixtureDef fdef;
+    Body body;    
+*/
     private Music music;
 
     public PlayScreen(Stealth_Ops game_passed){
@@ -72,7 +80,7 @@ public class PlayScreen implements Screen{
 		player = new Player(850, 0, 100);
 
 		enemies = new ArrayList<Enemy>();
-        enemies.add(new Enemy(900, 375, 25, 30, 'N', 90d));
+        enemies.add(new Enemy(900, 375, 25, 200, 'N', 90d));
 
 		detected = 0;
 
@@ -84,13 +92,16 @@ public class PlayScreen implements Screen{
         //create our game HUD 
         hud = new Hud(game.batch, this);
 
+        walls = new ArrayList<Rectangle>();
+        doors = new ArrayList<Rectangle>();
+
+/* 
         world = new World(new Vector2(0,0), true);
         b2dr = new Box2DDebugRenderer();
 
-        BodyDef bdef = new BodyDef(); 
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
-        Body body;
+        bdef = new BodyDef(); 
+        shape = new PolygonShape();
+        fdef = new FixtureDef();
 
         //player
         bdef.type = BodyDef.BodyType.DynamicBody;
@@ -100,11 +111,12 @@ public class PlayScreen implements Screen{
         shape.setAsBox(player.getWidth() / 2, player.getHeight() / 2);
         fdef.shape = shape;
         body.createFixture(fdef);
-
+*/
         //walls
         for(MapObject object: map.getLayers().get(0).getObjects().getByType(RectangleMapObject.class)){
             Rectangle retangulo = ((RectangleMapObject) object).getRectangle();
-
+            walls.add(retangulo);
+/* 
             bdef.type = BodyDef.BodyType.StaticBody;
             bdef.position.set(retangulo.getX() + retangulo.getWidth()/2, retangulo.getY() + retangulo.getHeight() /2);
 
@@ -113,11 +125,13 @@ public class PlayScreen implements Screen{
             shape.setAsBox(retangulo.getWidth() /2, retangulo.getHeight() / 2);
             fdef.shape = shape;
             body.createFixture(fdef);
+*/
         }
         //door
         for(MapObject object: map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
             Rectangle retangulo = ((RectangleMapObject) object).getRectangle();
-
+            doors.add(retangulo);
+/* 
             bdef.type = BodyDef.BodyType.StaticBody;
             bdef.position.set(retangulo.getX() + retangulo.getWidth()/2, retangulo.getY() + retangulo.getHeight() /2);
 
@@ -126,9 +140,10 @@ public class PlayScreen implements Screen{
             shape.setAsBox(retangulo.getWidth() /2, retangulo.getHeight() / 2);
             fdef.shape = shape;
             body.createFixture(fdef);
+*/
         }
     
-        world.setContactListener(new WorldContactListener());
+       // world.setContactListener(new WorldContactListener());
     }
 
     public TextureAtlas getAtlas(){
@@ -162,7 +177,7 @@ public class PlayScreen implements Screen{
         renderer.render();
 
         //render our BOX2DDebuglines
-        b2dr.render(world, gamecam.combined);
+        //b2dr.render(world, gamecam.combined);
 
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
@@ -178,7 +193,7 @@ public class PlayScreen implements Screen{
         hud.updateDetection(detected);
 
         enemy_move_alpha(enemies);
-        player.move();
+        player.move(walls);
 		GameUtils.camera_move(player, gamecam);
 
 		if (GameUtils.check_detection(player, enemies)) {
