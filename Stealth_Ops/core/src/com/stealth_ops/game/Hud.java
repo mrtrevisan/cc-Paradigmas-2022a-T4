@@ -22,19 +22,21 @@ public class Hud implements Disposable{
     private boolean timeUp; // true when the world timer reaches 0
     private float timeCount;
     private Integer detected;
+    private Integer success;
 
     //Labels
     private Label countdownLabel;
     private Label timeLabel;
     private Label levelLabel;
     private Label detectedLabel;
+    private Label successLabel;
 
     public Hud(SpriteBatch sb, PlayScreen ps){
         //define our tracking variables
         worldTimer = 0;
         timeCount = 0;
         detected = ps.detected;
-
+        success = ps.success;
         //setup the HUD viewport using a new camera seperate from our gamecam
         //define our stage using that viewport and our games spritebatch
         viewport = new FitViewport(Stealth_Ops.V_LAR, Stealth_Ops.V_ALT, new OrthographicCamera());
@@ -52,6 +54,7 @@ public class Hud implements Disposable{
         timeLabel = new Label("TEMPO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelLabel = new Label("ALPHA", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         detectedLabel = new Label(this.detected.toString(), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        successLabel = new Label(this.success.toString(), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
         table.add(timeLabel).expandX().padTop(10);
@@ -61,14 +64,15 @@ public class Hud implements Disposable{
         table.add(countdownLabel).expandX();
         table.row();
         table.add(detectedLabel).expandX();
-
+        table.add(successLabel).expandX();
         //add our table to the stage
         stage.addActor(table);
 
     }
 
-    public void update(float dt, int detected){
+    public void update(float dt, int detected, int success){
         updateDetection(detected);
+        updateSuccess(success);
         timeCount += dt;
         if(timeCount >= 1){
             worldTimer++;
@@ -80,6 +84,10 @@ public class Hud implements Disposable{
     public void updateDetection(int detected){
         this.detected = detected;
         detectedLabel.setText(this.detected.toString());
+    }
+    public void updateSuccess(int success){
+        this.success = success;
+        successLabel.setText(this.success.toString());
     }
 
     @Override

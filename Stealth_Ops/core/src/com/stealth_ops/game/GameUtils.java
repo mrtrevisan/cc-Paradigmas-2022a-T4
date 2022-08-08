@@ -1,6 +1,7 @@
 package com.stealth_ops.game;
 
 import java.util.ArrayList;
+import java.awt.geom.Point2D;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
@@ -28,6 +29,15 @@ public class GameUtils {
         return Math.acos( (pv.dot(ev)) / (pv.len() * ev.len()) ); 
     }
 
+    public static boolean isInside(Point2D.Float t, Rectangle wall){
+        if ( (t.x >= wall.getX()) &&
+             (t.x <= wall.getX() + wall.getWidth()) &&
+             (t.y >= wall.getY()) &&
+             (t.y <= wall.getY() + wall.getHeight())
+           ) return true;
+        else return false;
+    }
+
     public static boolean check_fov(Player player, Enemy enemy){
         Vector2 player_v = new Vector2(0f, 0f);
         Vector2 enemy_v = new Vector2(0f, 0f);
@@ -53,13 +63,37 @@ public class GameUtils {
         else return false;
     }
 
-    public static boolean check_detection(Player player, ArrayList<Enemy> enemies){
+    public static boolean check_vision(Player player, Enemy enemy, ArrayList<Rectangle> walls){
+        Point2D.Float p, e, t;
+        p = new Point2D.Float(player.x + player.getWidth() / 2, player.y + player.getHeight() / 2);
+        //p.x = player.x;
+        //p.y = player.y;
+        e = new Point2D.Float(enemy.x + enemy.getWidth() / 2, enemy.y + enemy.getHeight() / 2);
+        //e.x = enemy.x;
+        //e.y = enemy.y;
+        t = new Point2D.Float();
+
+        for (Rectangle wall : walls){
+            for (float i = 0; i < 1; i += 0.01) {
+                //r(i) = i*P + (1 - i)*E, 0 <= i <= 1
+                t.setLocation(
+                    i*p.getX() + (1-i)*e.getX(),
+                    i*p.getY() + (1-i)*e.getY() 
+                );
+                if (isInside(t, wall)) return false;
+            }  
+        }
+        return true;
+    }
+
+    public static boolean check_detection(Player player, ArrayList<Enemy> enemies, ArrayList<Rectangle> walls){
         for (Enemy enemy : enemies){
             if( 
                 (check_collision(player, enemy)) || 
                 (
                     check_fov(player, enemy) &&
-                    check_dist(player, enemy)
+                    check_dist(player, enemy) &&
+                    check_vision(player, enemy, walls)
                 )
             ) return true;
         }
@@ -68,14 +102,25 @@ public class GameUtils {
     
     public static boolean check_wall_collision(Player player, float x, float y, ArrayList<Rectangle> walls){
         for (Rectangle wall : walls) {
-            if ((x < wall.getX() + wall.getWidth() - 25) &&
-                (x + player.getWidth() - 25 > wall.getX()) &&
+            if ((x < wall.getX() + wall.getWidth() - 20) &&
+                (x + player.getWidth() - 20 > wall.getX()) &&
                 (y < wall.getY() + wall.getHeight() - 10) &&
-                (y + player.getHeight() - 45  > wall.getY())) {
+                (y + player.getHeight() - 30  > wall.getY())) {
                 return true;
             } 
         }
         return false;
     }
 
+    public static boolean check_success(Player player, ArrayList<Rectangle> doors){
+        for (Rectangle door : doors) {
+            if ((player.x < door.getX() + door.getWidth()) &&
+                (player.x + player.getWidth() - 25 > door.getX()) &&
+                (player.y < door.getY() + door.getHeight()) &&
+                (player.y + player.getHeight() - 25  > door.getY())) {
+                return true;
+            }  
+        }
+        return false;
+    }
 }

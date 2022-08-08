@@ -39,6 +39,8 @@ public class PlayScreen implements Screen{
     protected ArrayList<Rectangle> doors;
 
 	protected int detected;
+    protected int success;
+    protected int control;
 /* 
     //Box2d variables
     protected World world;
@@ -63,9 +65,11 @@ public class PlayScreen implements Screen{
 		player = new Player(850, 0, 100);
         //creates the enemies
 		enemies = new ArrayList<Enemy>();
-        enemies.add(new Enemy(900, 375, 25, 200, 'N', 90d));
+        enemies.add(new Enemy(900, 375, 25, 200, 'S', 120d));
 
 		detected = 0;
+        success = 0;
+        control = 0;
 
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
@@ -123,10 +127,39 @@ public class PlayScreen implements Screen{
        // world.setContactListener(new WorldContactListener());
     }
 
-    
+    public void move_alpha(Enemy enemy){
+        if (control < 650) {
+            enemy.move('L');
+            control++;
+        } 
+        else if (control == 650) {
+            enemy.setDirection('N');
+            control++;
+        }
+        else if (control < 750) {
+            control++;
+        }
+        else if (control < 1500) {
+            enemy.move('O');
+            control++;
+        }
+        else if (control == 1500) {
+            enemy.setDirection('S');
+            control++;
+        }
+        else if(control < 1600 ) {
+            control++;
+        }
+        else if (control < 1700) {
+            enemy.move('L');
+            control++;
+        } 
+        if (control == 1700) control = 0;
+    }
+
     public void enemy_move_alpha(ArrayList<Enemy> enemies){
         Iterator<Enemy> iter = enemies.iterator();
-        iter.next().move_alpha();
+        move_alpha(iter.next());
     }
     
     public void update(float dt){
@@ -134,7 +167,7 @@ public class PlayScreen implements Screen{
         gamecam.update();
         //tell our renderer to draw only what our camera can see in our game world.
         renderer.setView(gamecam);
-        hud.update(dt, detected);
+        hud.update(dt, detected, success);
     }
     
     @Override
@@ -164,7 +197,6 @@ public class PlayScreen implements Screen{
         //hud
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
-        hud.updateDetection(detected);
         
         //player, enemy and camera movement
         player.move(walls);
@@ -172,11 +204,15 @@ public class PlayScreen implements Screen{
 		GameUtils.camera_move(player, gamecam);
         
         //check detection for game-over
-		if (GameUtils.check_detection(player, enemies)) {
+		if (GameUtils.check_detection(player, enemies, walls)) {
             detected = 1;
 		} else detected = 0;
+
+        if (GameUtils.check_success(player, doors)) {
+            success = 1;
+        } else success = 0;
     }
-    
+
     @Override
     public void hide(){
         

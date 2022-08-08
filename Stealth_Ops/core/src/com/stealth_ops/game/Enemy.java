@@ -9,7 +9,6 @@ public class Enemy extends Rectangle {
     protected float speed, sight;
     protected char face_direction;
     protected double fov_angle;
-    protected int control;
 
     public Enemy(float x, float y, float speed, float sight, char fd, double fa){
         super(x, y, 0, 0);
@@ -18,20 +17,38 @@ public class Enemy extends Rectangle {
         this.sight = sight;
         this.face_direction = fd;
         this.fov_angle = fa;
-        this.control = 0;
 
         this.img_back = new Texture("enemy_back.png");
         this.img_front = new Texture("enemy_front.png");
         this.img_left = new Texture("enemy_left.png");
         this.img_right = new Texture("enemy_right.png");
-        this.img_to_show = img_back;
+        update_image();
 
         super.setWidth(img_to_show.getWidth());
         super.setHeight(img_to_show.getHeight());
     } 
 
+    public void update_image(){
+        switch(this.face_direction){
+            case 'N':
+                this.img_to_show = img_back;
+                break;
+            case 'S':
+                this.img_to_show = img_front;
+                break;
+            case 'L':
+                this.img_to_show = img_right;
+                break;
+            case 'O':
+                this.img_to_show = img_left;
+                break;
+            default:
+                return;
+        }
+    }
     public void setDirection(char dir){
         this.face_direction = dir;
+        update_image();
     }
 
     public Texture getImg(){
@@ -96,17 +113,6 @@ public class Enemy extends Rectangle {
                 this.x += this.speed * Gdx.graphics.getDeltaTime();
                 break;
         }
-    }
-
-    public void move_alpha(){
-        if (control / 500 == 0) {
-            this.move('L');
-            control++;
-        } else {
-            this.move('O');
-            control++;
-        }
-        if(control == 999) control = 0;
     }
 
     public void dispose(){
