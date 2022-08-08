@@ -8,7 +8,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -70,6 +69,7 @@ public class PlayScreen implements Screen{
         //music
         music = Gdx.audio.newMusic(Gdx.files.internal("mgs-vr.mp3"));
 		music.setLooping(true);
+        music.setVolume(0.2f);
 		music.play();
 
         //objects lists

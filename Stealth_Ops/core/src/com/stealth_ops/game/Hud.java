@@ -52,16 +52,16 @@ public class Hud implements Disposable{
         //define our labels using the String, and a Label style consisting of a font and color, toString -> important for build html
         countdownLabel = new Label(worldTimer.toString(), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label("TEMPO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        levelLabel = new Label("ALPHA", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        levelLabel = new Label("BETA", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         detectedLabel = new Label(this.detected.toString(), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         successLabel = new Label(this.success.toString(), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
         table.add(timeLabel).expandX().padTop(10);
+        table.add(countdownLabel).expandX();
         //add a second row to our table
         table.row();
         table.add(levelLabel).expandX();
-        table.add(countdownLabel).expandX();
         table.row();
         table.add(detectedLabel).expandX();
         table.add(successLabel).expandX();

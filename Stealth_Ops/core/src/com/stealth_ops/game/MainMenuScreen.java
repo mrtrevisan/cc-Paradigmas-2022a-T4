@@ -7,6 +7,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MainMenuScreen implements Screen {
 	final Stealth_Ops game;
@@ -16,11 +18,14 @@ public class MainMenuScreen implements Screen {
 	private Texture menu;
 	private Music menu_music;
 	private OrthographicCamera camera;
+	private Viewport menuPort;
 	
 	public MainMenuScreen(final Stealth_Ops passed_game) {
 		game = passed_game;
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, WIDTH, HEIGHT);
+		menuPort = new FitViewport(WIDTH, HEIGHT, camera);
+	
 		menu = new Texture(Gdx.files.internal("menu.jpg"));
 
 		menu_music = Gdx.audio.newMusic(Gdx.files.internal("Silence.mp3"));
@@ -30,7 +35,7 @@ public class MainMenuScreen implements Screen {
 	
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		camera.update();
@@ -38,8 +43,8 @@ public class MainMenuScreen implements Screen {
 		game.batch.begin();
 
 		game.batch.draw(menu,0,0);
-		game.txt.draw(game.batch, "Welcome to Stealth_Ops!!", 100, 150);
-		game.txt.draw(game.batch, "Press enter to start the game!", 100, 100);
+		game.txt.draw(game.batch, "Welcome to Stealth_Ops!!", 420, 150);
+		game.txt.draw(game.batch, "Press enter to start the game!", 420, 100);
 		game.txt.draw(game.batch, "Esc to finish the game", 10, 400);
 		game.batch.end();
 		
@@ -65,9 +70,11 @@ public class MainMenuScreen implements Screen {
 	public void show(){
 		
 	}
-	public void resize(int l, int w){
-		
-	}
+	@Override
+    public void resize(int width, int height) {
+        //updated our game viewport
+        menuPort.update(width, height);
+    }
 
 	@Override
 	public void dispose() {
