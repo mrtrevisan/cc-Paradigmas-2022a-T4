@@ -15,7 +15,7 @@ public class Stealth_Ops extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		txt = new BitmapFont();
-		//change the atual screen to menu screen
+		//change the current screen to menu screen
 		setScreen(new MainMenuScreen(this));
 	}
 

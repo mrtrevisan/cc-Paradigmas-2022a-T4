@@ -1,8 +1,8 @@
 package com.stealth_ops.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.Gdx;
 
 public class Enemy extends Rectangle {
     protected Texture img_back, img_front, img_left, img_right, img_to_show;
@@ -13,26 +13,29 @@ public class Enemy extends Rectangle {
 
     public Enemy(float x, float y, float speed, float sight, char fd, double fa){
         super(x, y, 0, 0);
+
         this.speed = speed;
         this.sight = sight;
         this.face_direction = fd;
         this.fov_angle = fa;
         this.control = 0;
-        img_back = new Texture("enemy_back.png");
-        img_front = new Texture("enemy_front.png");
-        img_left = new Texture("enemy_left.png");
-        img_right = new Texture("enemy_right.png");
-        img_to_show = img_back;
+
+        this.img_back = new Texture("enemy_back.png");
+        this.img_front = new Texture("enemy_front.png");
+        this.img_left = new Texture("enemy_left.png");
+        this.img_right = new Texture("enemy_right.png");
+        this.img_to_show = img_back;
+
         super.setWidth(img_to_show.getWidth());
         super.setHeight(img_to_show.getHeight());
-
     } 
+
     public void setDirection(char dir){
         this.face_direction = dir;
     }
 
     public Texture getImg(){
-        return img_to_show;
+        return this.img_to_show;
     }
 
     public float getSpeed(){

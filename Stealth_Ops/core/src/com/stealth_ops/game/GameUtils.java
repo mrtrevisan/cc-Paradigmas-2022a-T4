@@ -1,11 +1,11 @@
 package com.stealth_ops.game;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.math.Vector2;
-import java.lang.Math;
 import java.util.ArrayList;
+
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class GameUtils {
     public static boolean check_collision(Player player, Enemy enemy){
@@ -19,8 +19,8 @@ public class GameUtils {
 
     public static void camera_move(Player player, OrthographicCamera camera){
         Vector3 position = camera.position;
-        position.x = player.getX() + (player.getImgW() / 2);
-        position.y = player.getY() + (player.getImgH() / 2);
+        position.x = player.getX() + (player.getWidth() / 2);
+        position.y = player.getY() + (player.getHeight() / 2);
         camera.position.set(position);
     }
 
