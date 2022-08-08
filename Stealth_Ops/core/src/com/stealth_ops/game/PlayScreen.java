@@ -21,7 +21,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class PlayScreen implements Screen{
     //Reference to our Game, used to set Screens
     final Stealth_Ops game;
-    protected TextureAtlas atlas;
 
     //basic playscreen variables
     protected OrthographicCamera gamecam;
@@ -41,20 +40,10 @@ public class PlayScreen implements Screen{
 	protected int detected;
     protected int success;
     protected int control;
-/* 
-    //Box2d variables
-    protected World world;
-    protected Box2DDebugRenderer b2dr;
 
-    protected BodyDef bdef;
-    protected PolygonShape shape;
-    protected FixtureDef fdef;
-    protected Body body;    
-*/
     protected Music music;
 
     public PlayScreen(Stealth_Ops game_passed){
-        // atlas = new TextureAtlas("Mario_and_Enemies.pack");
         this.game = game_passed;
 
         //create cam used to follow player through the map
@@ -78,53 +67,25 @@ public class PlayScreen implements Screen{
         
         //create our game HUD 
         hud = new Hud(game.batch, this);
+        //music
+        music = Gdx.audio.newMusic(Gdx.files.internal("mgs-vr.mp3"));
+		music.setLooping(true);
+		music.play();
+
         //objects lists
         walls = new ArrayList<Rectangle>();
         doors = new ArrayList<Rectangle>();
 
-/* 
-        world = new World(new Vector2(0,0), true);
-        b2dr = new Box2DDebugRenderer();
-        bdef = new BodyDef(); 
-        shape = new PolygonShape();
-        fdef = new FixtureDef();
-
-        //player
-        bdef.type = BodyDef.BodyType.DynamicBody;
-        bdef.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2);
-        body = world.createBody(bdef);
-        shape.setAsBox(player.getWidth() / 2, player.getHeight() / 2);
-        fdef.shape = shape;
-        body.createFixture(fdef);
-*/
         //walls
         for(MapObject object: map.getLayers().get(0).getObjects().getByType(RectangleMapObject.class)){
             Rectangle retangulo = ((RectangleMapObject) object).getRectangle();
             walls.add(retangulo);
-/* 
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(retangulo.getX() + retangulo.getWidth()/2, retangulo.getY() + retangulo.getHeight() /2);
-            body = world.createBody(bdef);
-            shape.setAsBox(retangulo.getWidth() /2, retangulo.getHeight() / 2);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-*/
         }
-        //door
+        //doors
         for(MapObject object: map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
             Rectangle retangulo = ((RectangleMapObject) object).getRectangle();
             doors.add(retangulo);
-/* 
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(retangulo.getX() + retangulo.getWidth()/2, retangulo.getY() + retangulo.getHeight() /2);
-            body = world.createBody(bdef);
-            shape.setAsBox(retangulo.getWidth() /2, retangulo.getHeight() / 2);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-*/
         }
-    
-       // world.setContactListener(new WorldContactListener());
     }
 
     public void move_alpha(Enemy enemy){
@@ -179,9 +140,6 @@ public class PlayScreen implements Screen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //render our game map
         renderer.render();
-        
-        //render our BOX2DDebuglines
-        //b2dr.render(world, gamecam.combined);
         
         //sprite batch
         game.batch.setProjectionMatrix(gamecam.combined);
@@ -240,10 +198,6 @@ public class PlayScreen implements Screen{
         
     }
     
-    public TextureAtlas getAtlas(){
-        return atlas;
-    }
-
     public TiledMap getMap(){
         return map;
     }
@@ -253,6 +207,7 @@ public class PlayScreen implements Screen{
         //dispose of all our opened resources
         map.dispose();
         renderer.dispose();
+        music.dispose();
         hud.dispose();
         player.dispose();
         for (Enemy enemy : enemies) {
