@@ -70,6 +70,7 @@ public class PlayScreen implements Screen{
         gamePort = new FitViewport(Stealth_Ops.V_LAR, Stealth_Ops.V_ALT, gamecam);
         
 		player = new Player(850, 0, 100);
+
 		enemies = new ArrayList<Enemy>();
         enemies.add(new Enemy(900, 375, 25, 30, 'N', 90d));
 
@@ -91,6 +92,29 @@ public class PlayScreen implements Screen{
         FixtureDef fdef = new FixtureDef();
         Body body;
 
+        //player
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2);
+
+        body = world.createBody(bdef);
+        shape.setAsBox(player.getWidth() / 2, player.getHeight() / 2);
+        fdef.shape = shape;
+        body.createFixture(fdef);
+
+        //walls
+        for(MapObject object: map.getLayers().get(0).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle retangulo = ((RectangleMapObject) object).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set(retangulo.getX() + retangulo.getWidth()/2, retangulo.getY() + retangulo.getHeight() /2);
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(retangulo.getWidth() /2, retangulo.getHeight() / 2);
+            fdef.shape = shape;
+            body.createFixture(fdef);
+        }
+        //door
         for(MapObject object: map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
             Rectangle retangulo = ((RectangleMapObject) object).getRectangle();
 
@@ -103,6 +127,8 @@ public class PlayScreen implements Screen{
             fdef.shape = shape;
             body.createFixture(fdef);
         }
+    
+        world.setContactListener(new WorldContactListener());
     }
 
     public TextureAtlas getAtlas(){
