@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="100" height="80" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="36">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="100" height="80" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="44">
  <tileset firstgid="1" source="tileset_gutter.tsx"/>
- <tileset firstgid="925" source="../../../dungeon.tsx"/>
- <tileset firstgid="2525" source="../../../box.tsx"/>
+ <tileset firstgid="925" source="dungeon.tsx"/>
+ <tileset firstgid="2525" source="box.tsx"/>
  <objectgroup id="2" name="walls">
   <object id="13" x="782.175" y="752" width="17.825" height="528"/>
   <object id="16" x="960" y="960" width="15.8133" height="320"/>
@@ -14,6 +14,10 @@
   <object id="26" x="1232" y="578.924" width="63.8133" height="72.14"/>
   <object id="31" x="800" y="1264" width="48" height="16"/>
   <object id="34" x="912" y="1264" width="48" height="16"/>
+  <object id="39" x="896" y="960" width="64" height="80"/>
+  <object id="40" x="1072" y="896" width="64" height="64"/>
+  <object id="42" x="944" y="816" width="64" height="48"/>
+  <object id="43" x="995.289" y="920.116"/>
  </objectgroup>
  <objectgroup id="3" name="door">
   <object id="29" x="1168" y="575.907" width="64" height="76.1633"/>
