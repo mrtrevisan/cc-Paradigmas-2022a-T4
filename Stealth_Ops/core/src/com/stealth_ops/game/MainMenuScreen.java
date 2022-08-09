@@ -43,9 +43,9 @@ public class MainMenuScreen implements Screen {
 		game.batch.begin();
 
 		game.batch.draw(menu,0,0, WIDTH, HEIGHT);
-		game.txt.draw(game.batch, "Welcome to Stealth_Ops!!", 420, 150);
+		game.txt.draw(game.batch, "Welcome to Stealth_Ops!!", 500, 400);
 		game.txt.draw(game.batch, "Press enter to start the game!", 420, 100);
-		game.txt.draw(game.batch, "Esc to finish the game", 10, 400);
+		game.txt.draw(game.batch, "Press ESC at any time to finish the game", 10, 400);
 		game.batch.end();
 		
 		// If player activates the game, dispose of this menu.

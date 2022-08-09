@@ -73,15 +73,16 @@ public class PlayScreen implements Screen{
         
         //create our game HUD 
         hud = new Hud(game.batch, this);
+
         //music
         music = Gdx.audio.newMusic(Gdx.files.internal("mgs-vr.mp3"));
 		music.setLooping(true);
-		music.play();
         music.setVolume(0.2f);
+		music.play();
         rapaais = Gdx.audio.newMusic(Gdx.files.internal("rapaais.mp3"));
         rapaais.setLooping(false);
         uui = Gdx.audio.newMusic(Gdx.files.internal("uui.mp3"));
-        music.setLooping(false);
+        uui.setLooping(false);
 
         //objects lists
         walls = new ArrayList<Rectangle>();
@@ -174,9 +175,10 @@ public class PlayScreen implements Screen{
 		    GameUtils.camera_move(player, gamecam);
         }
 
+/*      //debug
         if (Gdx.input.isKeyPressed(Keys.E)) detected = 1;
         if (Gdx.input.isKeyPressed(Keys.Q)) success = 1;
-
+*/
         //check detection for game-over
 		if (GameUtils.check_detection(player, enemies, walls)) {
             detected = 1;
@@ -184,6 +186,12 @@ public class PlayScreen implements Screen{
 
         if (GameUtils.check_success(player, doors)) {
             success = 1;
+        }
+
+        if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+            dispose();
+            game.batch.dispose();
+            game.txt.dispose();
         }
 
         if (success == 1) end_game();

@@ -57,15 +57,15 @@ public class Hud implements Disposable{
         successLabel = new Label(this.success.toString(), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
-        table.add(timeLabel).expandX().padTop(10);
+        table.add(timeLabel).expandX();
         table.add(countdownLabel).expandX();
-        //add a second row to our table
+/*      //add a second row to our table
         table.row();
         table.add(levelLabel).expandX();
         table.row();
         table.add(detectedLabel).expandX();
         table.add(successLabel).expandX();
-        //add our table to the stage
+        //add our table to the stage        */
         stage.addActor(table);
 
     }
