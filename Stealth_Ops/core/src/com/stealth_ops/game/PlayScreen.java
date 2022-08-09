@@ -54,10 +54,10 @@ public class PlayScreen implements Screen{
         //create a FitViewport to maintain virtual aspect ratio despite screen size
         gamePort = new FitViewport(Stealth_Ops.V_LAR, Stealth_Ops.V_ALT, gamecam);
         //creates the player
-		player = new Player(850, 0, 100);
+		player = new Player(200, 0, 100);
         //creates the enemies
 		enemies = new ArrayList<Enemy>();
-        enemies.add(new Enemy(900, 375, 25, 200, 'S', 120d));
+        enemies.add(new Enemy(250, 375, 25, 200, 'S', 120d));
 
 		detected = 0;
         success = 0;
@@ -66,7 +66,7 @@ public class PlayScreen implements Screen{
 
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
-        map = maploader.load("fase_alpha.tmx");
+        map = maploader.load("fase_beta.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         
         //create our game HUD 
