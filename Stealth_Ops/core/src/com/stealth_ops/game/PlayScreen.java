@@ -191,6 +191,11 @@ public class PlayScreen implements Screen{
             rapaais.play();
             sound_control = 1;
         }
+        for(int i =0; i<1000000; i++){
+            //nop
+        }
+        game.setScreen(new GameOverScreen(game));
+        dispose();
     }
 
     public void end_game(){
@@ -199,6 +204,8 @@ public class PlayScreen implements Screen{
             uui.play();
             sound_control = 1;
         }
+        dispose();
+    //    game.setScreen(new EndGameScreen(game));
     }
 
     @Override
@@ -240,6 +247,8 @@ public class PlayScreen implements Screen{
         music.dispose();
         hud.dispose();
         player.dispose();
+        rapaais.dispose();
+        uui.dispose();
         for (Enemy enemy : enemies) {
             enemy.dispose();
         }

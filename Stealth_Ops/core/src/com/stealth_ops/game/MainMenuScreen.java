@@ -51,10 +51,10 @@ public class MainMenuScreen implements Screen {
 		// If player activates the game, dispose of this menu.
 		if(Gdx.input.isKeyPressed(Keys.ENTER)){ 
 			game.setScreen(new PlayScreen(game));
-			dispose();
+			dispose_enter();
 		}
 		else if(Gdx.input.isKeyPressed(Keys.ESCAPE)){
-			dispose();
+			dispose_esc();
 		}
 	}
 
@@ -76,9 +76,20 @@ public class MainMenuScreen implements Screen {
         menuPort.update(width, height);
     }
 
-	@Override
-	public void dispose() {
+
+	public void dispose_esc() {
 		menu_music.dispose();
 		menu.dispose();
+		game.batch.dispose();
+		game.txt.dispose();
+	}
+
+	public void dispose_enter(){
+		menu_music.dispose();
+		menu.dispose();
+	}
+	@Override
+	public void dispose() {
+
 	}
 }

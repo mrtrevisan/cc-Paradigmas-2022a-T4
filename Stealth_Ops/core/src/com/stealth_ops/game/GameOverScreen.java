@@ -14,8 +14,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameOverScreen implements Screen {
     final Stealth_Ops game;
-	static private int WIDTH = 720;
-	static private int HEIGHT = 405;
+	static private int WIDTH = 1920;
+	static private int HEIGHT = 1080;
 
 	private Texture gameOver;
 	private Music gameOver_music;
@@ -30,8 +30,9 @@ public class GameOverScreen implements Screen {
 	
 		gameOver = new Texture(Gdx.files.internal("game_over.jpg"));
 
-		//gameOver_music = Gdx.audio.newMusic(Gdx.files.internal("mgs-game_over"));
+		gameOver_music = Gdx.audio.newMusic(Gdx.files.internal("mgs-game_over.mp3"));
 		gameOver_music.setLooping(true);
+        gameOver_music.setVolume(0.2f);
 		gameOver_music.play();
 	}
 
@@ -82,5 +83,7 @@ public class GameOverScreen implements Screen {
     public void dispose() {
         gameOver_music.dispose();
         gameOver.dispose();
+        game.batch.dispose();
+        game.txt.dispose();
     }
 }
