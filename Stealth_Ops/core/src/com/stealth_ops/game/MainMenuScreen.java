@@ -26,7 +26,7 @@ public class MainMenuScreen implements Screen {
 		camera.setToOrtho(false, WIDTH, HEIGHT);
 		menuPort = new FitViewport(WIDTH, HEIGHT, camera);
 	
-		menu = new Texture(Gdx.files.internal("menu.jpg"));
+		menu = new Texture(Gdx.files.internal("main_menu.jpg"));
 
 		menu_music = Gdx.audio.newMusic(Gdx.files.internal("Silence.mp3"));
 		menu_music.setLooping(true);
@@ -42,7 +42,7 @@ public class MainMenuScreen implements Screen {
 		game.batch.setProjectionMatrix(camera.combined);
 		game.batch.begin();
 
-		game.batch.draw(menu,0,0);
+		game.batch.draw(menu,0,0, WIDTH, HEIGHT);
 		game.txt.draw(game.batch, "Welcome to Stealth_Ops!!", 420, 150);
 		game.txt.draw(game.batch, "Press enter to start the game!", 420, 100);
 		game.txt.draw(game.batch, "Esc to finish the game", 10, 400);

@@ -6,10 +6,8 @@ import java.util.Iterator;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -18,6 +16,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.Input.Keys;
 
 public class PlayScreen implements Screen{
     //Reference to our Game, used to set Screens
@@ -42,9 +41,10 @@ public class PlayScreen implements Screen{
     protected int success;
     protected int control;
     protected int sound_control;
+    protected static float time_since_detection, time_since_success;
 
     protected Music music;
-    protected Sound rapaais, uui;
+    protected Music rapaais, uui;
 
     public PlayScreen(Stealth_Ops game_passed){
         this.game = game_passed;
@@ -63,6 +63,8 @@ public class PlayScreen implements Screen{
         success = 0;
         control = 0;
         sound_control = 0;
+        time_since_detection = 0;
+        time_since_success = 0;
 
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
@@ -76,8 +78,10 @@ public class PlayScreen implements Screen{
 		music.setLooping(true);
 		music.play();
         music.setVolume(0.2f);
-        rapaais = Gdx.audio.newSound(Gdx.files.internal("rapaais.mp3"));
-        uui = Gdx.audio.newSound(Gdx.files.internal("uui.mp3"));
+        rapaais = Gdx.audio.newMusic(Gdx.files.internal("rapaais.mp3"));
+        rapaais.setLooping(false);
+        uui = Gdx.audio.newMusic(Gdx.files.internal("uui.mp3"));
+        music.setLooping(false);
 
         //objects lists
         walls = new ArrayList<Rectangle>();
@@ -93,8 +97,6 @@ public class PlayScreen implements Screen{
             Rectangle retangulo = ((RectangleMapObject) object).getRectangle();
             doors.add(retangulo);
         }
-
-        Gdx.graphics.setContinuousRendering(false);
     }
 
     public void move_alpha(Enemy enemy){
@@ -167,10 +169,14 @@ public class PlayScreen implements Screen{
         
         //player, enemy and camera movement
         if ((detected == 0) && (success == 0)){
-            player.move(walls);
             enemy_move_alpha(enemies);
+            player.move(walls);
 		    GameUtils.camera_move(player, gamecam);
         }
+
+        if (Gdx.input.isKeyPressed(Keys.E)) detected = 1;
+        if (Gdx.input.isKeyPressed(Keys.Q)) success = 1;
+
         //check detection for game-over
 		if (GameUtils.check_detection(player, enemies, walls)) {
             detected = 1;
@@ -182,7 +188,6 @@ public class PlayScreen implements Screen{
 
         if (success == 1) end_game();
         if (detected == 1) game_over();
-        if ((success == 0) && (detected == 0)) Gdx.graphics.requestRendering();
     }
 
     public void game_over(){
@@ -191,8 +196,12 @@ public class PlayScreen implements Screen{
             rapaais.play();
             sound_control = 1;
         }
-        game.setScreen(new GameOverScreen(game));
-        dispose();
+
+        time_since_detection += Gdx.graphics.getDeltaTime();
+        if (!rapaais.isPlaying() && time_since_detection > 2) {
+            game.setScreen(new GameOverScreen(game));
+            dispose();
+        }
     }
 
     public void end_game(){
@@ -201,7 +210,12 @@ public class PlayScreen implements Screen{
             uui.play();
             sound_control = 1;
         }
-        dispose();
+
+        time_since_success += Gdx.graphics.getDeltaTime();
+        if (!uui.isPlaying() && time_since_success > 2) {
+            game.setScreen(new EndGameScreen(game));
+            dispose();
+        }
     //    game.setScreen(new EndGameScreen(game));
     }
 
