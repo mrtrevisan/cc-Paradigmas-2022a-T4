@@ -191,9 +191,6 @@ public class PlayScreen implements Screen{
             rapaais.play();
             sound_control = 1;
         }
-        for(int i =0; i<1000000; i++){
-            //nop
-        }
         game.setScreen(new GameOverScreen(game));
         dispose();
     }

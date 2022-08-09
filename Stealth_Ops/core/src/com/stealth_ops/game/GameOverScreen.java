@@ -58,6 +58,8 @@ public class GameOverScreen implements Screen {
 		}
 		else if(Gdx.input.isKeyPressed(Keys.ESCAPE)){
 			dispose();
+			game.batch.dispose();
+        	game.txt.dispose();
 		}
 	}
 
@@ -83,7 +85,5 @@ public class GameOverScreen implements Screen {
     public void dispose() {
         gameOver_music.dispose();
         gameOver.dispose();
-        game.batch.dispose();
-        game.txt.dispose();
     }
 }

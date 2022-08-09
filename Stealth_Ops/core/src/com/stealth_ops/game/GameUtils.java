@@ -1,12 +1,14 @@
 package com.stealth_ops.game;
 
 import java.util.ArrayList;
-import java.awt.geom.Point2D;
+//import java.awt.geom.Point2D;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+
+import com.stealth_ops.game.OurPoint;
 
 public class GameUtils {
     public static boolean check_collision(Player player, Enemy enemy){
@@ -29,7 +31,7 @@ public class GameUtils {
         return Math.acos( (pv.dot(ev)) / (pv.len() * ev.len()) ); 
     }
 
-    public static boolean isInside(Point2D.Float t, Rectangle wall){
+    public static boolean isInside(OurPoint t, Rectangle wall){
         if ( (t.x >= wall.getX()) &&
              (t.x <= wall.getX() + wall.getWidth()) &&
              (t.y >= wall.getY()) &&
@@ -64,14 +66,14 @@ public class GameUtils {
     }
 
     public static boolean check_vision(Player player, Enemy enemy, ArrayList<Rectangle> walls){
-        Point2D.Float p, e, t;
-        p = new Point2D.Float(player.x + player.getWidth() / 2, player.y + player.getHeight() / 2);
+        OurPoint p, e, t;
+        p = new OurPoint(player.x + player.getWidth() / 2, player.y + player.getHeight() / 2);
         //p.x = player.x;
         //p.y = player.y;
-        e = new Point2D.Float(enemy.x + enemy.getWidth() / 2, enemy.y + enemy.getHeight() / 2);
+        e = new OurPoint(enemy.x + enemy.getWidth() / 2, enemy.y + enemy.getHeight() / 2);
         //e.x = enemy.x;
         //e.y = enemy.y;
-        t = new Point2D.Float();
+        t = new OurPoint();
 
         for (Rectangle wall : walls){
             for (float i = 0; i < 1; i += 0.01) {
