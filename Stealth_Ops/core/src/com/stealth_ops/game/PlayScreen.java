@@ -23,28 +23,33 @@ public class PlayScreen implements Screen{
     final Stealth_Ops game;
 
     //basic playscreen variables
-    protected OrthographicCamera gamecam;
-    protected Viewport gamePort;
-    protected Hud hud;
+    private OrthographicCamera gamecam;
+    private Viewport gamePort;
+    private Hud hud;
 
     //Tiled map variables
-    protected TmxMapLoader maploader;
-    protected TiledMap map;
-    protected OrthogonalTiledMapRenderer renderer;
+    private TmxMapLoader maploader;
+    private TiledMap map;
+    private OrthogonalTiledMapRenderer renderer;
 
-	protected Player player;
-	protected ArrayList<Enemy> enemies;
-    protected ArrayList<Rectangle> walls;
-    protected ArrayList<Rectangle> doors;
+    //Map Objects and Actors
+	private Player player;
+	private ArrayList<Enemy> enemies;
+    private ArrayList<Rectangle> walls;
+    private ArrayList<Rectangle> doors;
 
+    //Game control variables
 	protected int detected;
     protected int success;
-    protected int sound_control;
-    protected static float time_since_detection, time_since_success;
-    protected float control;
+    private int sound_control;
+    private float time_since_detection;
+    private float time_since_success;
+    private float control;
 
-    protected Music music;
-    protected Music rapaais, uui;
+    //Music 
+    private Music music;
+    //Sounds
+    private Music rapaais, uui;
 
     public PlayScreen(Stealth_Ops game_passed){
         this.game = game_passed;
@@ -218,7 +223,6 @@ public class PlayScreen implements Screen{
             game.setScreen(new EndGameScreen(game));
             dispose();
         }
-    //    game.setScreen(new EndGameScreen(game));
     }
 
     @Override
