@@ -39,9 +39,9 @@ public class PlayScreen implements Screen{
 
 	protected int detected;
     protected int success;
-    protected int control;
     protected int sound_control;
     protected static float time_since_detection, time_since_success;
+    protected float control;
 
     protected Music music;
     protected Music rapaais, uui;
@@ -101,33 +101,27 @@ public class PlayScreen implements Screen{
     }
 
     public void move_alpha(Enemy enemy){
-        if (control < 650) {
+        if (control < 12) {
             enemy.move('L');
-            control++;
+            control += Gdx.graphics.getDeltaTime();
         } 
-        else if (control == 650) {
+        else if ( (control >= 12) && (control < 14) ) {
             enemy.setDirection('N');
-            control++;
+            control += Gdx.graphics.getDeltaTime();
         }
-        else if (control < 750) {
-            control++;
-        }
-        else if (control < 1500) {
+        else if (control < 28) {
             enemy.move('O');
-            control++;
+            control += Gdx.graphics.getDeltaTime();
         }
-        else if (control == 1500) {
+        else if ( (control >= 28) && (control < 32) ) {
             enemy.setDirection('S');
-            control++;
+            control += Gdx.graphics.getDeltaTime();
         }
-        else if(control < 1600 ) {
-            control++;
-        }
-        else if (control < 1700) {
+        else if (control < 34) {
             enemy.move('L');
-            control++;
+            control += Gdx.graphics.getDeltaTime();
         } 
-        if (control == 1700) control = 0;
+        if (control >= 34) control = 0;
     }
 
     public void enemy_move_alpha(ArrayList<Enemy> enemies){
@@ -181,7 +175,7 @@ public class PlayScreen implements Screen{
 */
         //check detection for game-over
 		if (GameUtils.check_detection(player, enemies, walls)) {
-            detected = 1;
+           detected = 1;
 		}
 
         if (GameUtils.check_success(player, doors)) {
