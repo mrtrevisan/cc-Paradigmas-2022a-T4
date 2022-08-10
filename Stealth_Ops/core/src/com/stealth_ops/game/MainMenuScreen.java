@@ -15,10 +15,11 @@ public class MainMenuScreen implements Screen {
 	static private int WIDTH = 720;
 	static private int HEIGHT = 405;
 
-	private Texture menu;
+	private Texture menu, manual;
 	private Music menu_music;
 	private OrthographicCamera camera;
 	private Viewport menuPort;
+	private boolean manual_menu;
 	
 	public MainMenuScreen(final Stealth_Ops passed_game) {
 		game = passed_game;
@@ -27,10 +28,13 @@ public class MainMenuScreen implements Screen {
 		menuPort = new FitViewport(WIDTH, HEIGHT, camera);
 	
 		menu = new Texture(Gdx.files.internal("main_menu.jpg"));
+		manual = new Texture(Gdx.files.internal("manual.png"));
 
 		menu_music = Gdx.audio.newMusic(Gdx.files.internal("Silence.mp3"));
 		menu_music.setLooping(true);
 		menu_music.play();
+
+		manual_menu = false;
 	}
 	
 	@Override
@@ -41,19 +45,35 @@ public class MainMenuScreen implements Screen {
 		camera.update();
 		game.batch.setProjectionMatrix(camera.combined);
 		game.batch.begin();
-
-		game.batch.draw(menu,0,0, WIDTH, HEIGHT);
-		game.txt.draw(game.batch, "Welcome to Stealth_Ops!!", 500, 400);
-		game.txt.draw(game.batch, "Press enter to start the game!", 420, 100);
-		game.txt.draw(game.batch, "Press ESC at any time to finish the game", 10, 400);
-		game.batch.end();
 		
-		// If player activates the game, dispose of this menu.
-		if(Gdx.input.isKeyPressed(Keys.ENTER)){ 
-			game.setScreen(new PlayScreen(game));
-			dispose();
+		if (!manual_menu){
+			game.batch.draw(menu,0,0, WIDTH, HEIGHT);
+			game.txt.draw(game.batch, "Welcome to Stealth_Ops!!", 500, 400);
+			game.txt.draw(game.batch, "Press enter to start the game!", 420, 80);
+			game.txt.draw(game.batch, "Press H to show controls menu", 420, 110);
+			game.txt.draw(game.batch, "Press ESC at any time to finish the game", 10, 400);
+			game.batch.end();
+		
+			// If player activates the game, dispose of this menu.
+			if(Gdx.input.isKeyJustPressed(Keys.ENTER)){ 
+				game.setScreen(new PlayScreen(game));
+				dispose();
+			}
+			if (Gdx.input.isKeyPressed(Keys.H)){
+				manual_menu = true;
+			}
+		} else {
+			game.batch.draw(manual ,0,0, WIDTH, HEIGHT);
+			game.txt.draw(game.batch, "Press ESC at any time to finish the game", 10, 400);
+			game.txt.draw(game.batch, "Press enter to go back to title menu", WIDTH / 2 - 60, 20);
+			game.batch.end();
+
+			if(Gdx.input.isKeyJustPressed(Keys.ENTER)){ 
+				manual_menu = false;
+			}
 		}
-		else if(Gdx.input.isKeyPressed(Keys.ESCAPE)){
+		
+		if(Gdx.input.isKeyPressed(Keys.ESCAPE)){
 			dispose();
 			game.txt.dispose();
 			game.batch.dispose();
@@ -82,5 +102,6 @@ public class MainMenuScreen implements Screen {
 	public void dispose() {
 		menu_music.dispose();
 		menu.dispose();
+		manual.dispose();
 	}
 }

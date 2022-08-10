@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class Stealth_Ops extends Game {
-	public static final int V_LAR = 400;
-	public static final int V_ALT = 200;
+	public static final int V_LAR = 500;
+	public static final int V_ALT = 300;
 
 	public SpriteBatch batch;
 	public BitmapFont txt;
