@@ -7,11 +7,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class GameUtils {
+    final static int player_ajuste = 25;
     public static boolean check_collision(Player player, Enemy enemy){
-        if ((player.getX() < enemy.getX() + enemy.getWidth() - 25) &&
-            (player.getX() + player.getWidth() - 25 > enemy.getX()) &&
-            (player.getY() < enemy.getY() + enemy.getHeight() - 25) &&
-            (player.getY() + player.getHeight() - 25  > enemy.getY())) {
+        if ((player.getX() < enemy.getX() + enemy.getWidth() - player_ajuste) &&
+            (player.getX() + player.getWidth() - player_ajuste > enemy.getX()) &&
+            (player.getY() < enemy.getY() + enemy.getHeight() - player_ajuste) &&
+            (player.getY() + player.getHeight() - player_ajuste  > enemy.getY())) {
             return true;
         } else return false;
     }
@@ -97,13 +98,12 @@ public class GameUtils {
         }
         return false;
     }
-    
     public static boolean check_wall_collision(Player player, float x, float y, ArrayList<Rectangle> walls){
         for (Rectangle wall : walls) {
             if ((x < wall.getX() + wall.getWidth() - 20) &&
-                (x + player.getWidth() - 20 > wall.getX()) &&
+                (x + player.getWidth() - player_ajuste > wall.getX()) &&
                 (y < wall.getY() + wall.getHeight() - 10) &&
-                (y + player.getHeight() - 30  > wall.getY())) {
+                (y + player.getHeight() - player_ajuste > wall.getY())) {
                 return true;
             } 
         }
@@ -113,9 +113,9 @@ public class GameUtils {
     public static boolean check_success(Player player, ArrayList<Rectangle> doors){
         for (Rectangle door : doors) {
             if ((player.x < door.getX() + door.getWidth()) &&
-                (player.x + player.getWidth() - 25 > door.getX()) &&
+                (player.x + player.getWidth() - player_ajuste > door.getX()) &&
                 (player.y < door.getY() + door.getHeight()) &&
-                (player.y + player.getHeight() - 25  > door.getY())) {
+                (player.y + player.getHeight() - player_ajuste  > door.getY())) {
                 return true;
             }  
         }

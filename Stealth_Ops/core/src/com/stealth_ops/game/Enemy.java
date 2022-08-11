@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Enemy extends Rectangle {
-    protected Texture img_back, img_front, img_left, img_right, img_to_show;
-    protected float speed, sight;
-    protected char face_direction;
+    private Texture img_back, img_front, img_left, img_right, img_to_show;
+    private float speed, sight;
+    private char face_direction;
     protected double fov_angle;
 
     public Enemy(float x, float y, float speed, float sight, char fd, double fa){

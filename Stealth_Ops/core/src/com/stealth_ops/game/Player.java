@@ -8,9 +8,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Player extends Rectangle{
-    protected Texture img_back, img_front, img_left, img_right, img_to_show;
-    protected float speed;
-    protected float desloc;
+   private Texture img_back, img_front, img_left, img_right, img_to_show;
+   private float speed;
+   private float desloc;
 
     public Player(int x, int y, float speed){
         super(x, y, 0, 0);
